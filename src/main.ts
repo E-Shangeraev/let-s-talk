@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import { Container, ContainerModule } from 'inversify';
-import { ILogger, LoggerService } from './logger';
+import { ILogger, LoggerService } from './common';
 import { TYPES } from './types';
 import { App } from './app';
+import { IUserController, UserController } from './infrastructure/controllers/user';
 
 interface IBootstrap {
 	app: App;
@@ -11,6 +12,7 @@ interface IBootstrap {
 
 const bindings = new ContainerModule((bind) => {
 	bind<ILogger>(TYPES.Logger).to(LoggerService);
+	bind<IUserController>(TYPES.UserController).to(UserController);
 	bind<App>(TYPES.App).to(App);
 });
 
