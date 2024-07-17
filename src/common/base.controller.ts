@@ -8,7 +8,7 @@ import { HttpStatus } from './types';
 export abstract class BaseController {
 	private readonly _router: Router;
 
-	constructor(private readonly logger: ILogger) {
+	constructor(readonly logger: ILogger) {
 		this._router = Router();
 	}
 

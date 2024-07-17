@@ -6,8 +6,8 @@ import { IUserController } from './user.controller.interface';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
-	constructor(@inject(TYPES.Logger) private readonly loggerService: ILogger) {
-		super(loggerService);
+	constructor(@inject(TYPES.Logger) logger: ILogger) {
+		super(logger);
 
 		this.bindRoutes([
 			{
