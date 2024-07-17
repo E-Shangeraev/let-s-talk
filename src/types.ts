@@ -1,7 +1,7 @@
 export const TYPES = {
 	App: Symbol('App'),
 	Logger: Symbol('Logger'),
-	ErrorHandler: Symbol('ErrorHandler'),
+	ExceptionFilter: Symbol('ExceptionFilter'),
 
 	UserController: Symbol('UserController'),
 };
