@@ -4,7 +4,7 @@ import { Server } from 'http';
 import { IUserController, UserController } from './infrastructure/controllers/user';
 import { ILogger } from './common/logger';
 import { TYPES } from './types';
-import { IErrorHandler } from './common';
+import { IExceptionFilter } from './common';
 
 @injectable()
 export class App {
@@ -14,7 +14,7 @@ export class App {
 
 	constructor(
 		@inject<ILogger>(TYPES.Logger) private logger: ILogger,
-		@inject<IErrorHandler>(TYPES.ErrorHandler) private errorHandler: IErrorHandler,
+		@inject<IExceptionFilter>(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter,
 		@inject<IUserController>(TYPES.UserController) private userController: UserController,
 	) {
 		this.app = express();
@@ -25,13 +25,13 @@ export class App {
 		this.app.use('/users', this.userController.router);
 	}
 
-	public useErrorHandler(): void {
-		this.app.use(this.errorHandler.catch.bind(this.errorHandler));
+	public useExceptionFilter(): void {
+		this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
 	}
 
 	public async init(): Promise<void> {
 		this.useRoutes();
-		this.useErrorHandler();
+		this.useExceptionFilter();
 		this.server = this.app.listen(this.port);
 		this.logger.info(`The server has been started at http://localhost:${this.port}`);
 	}
