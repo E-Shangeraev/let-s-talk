@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import { Response, Router } from 'express';
 import { ILogger } from './logger';
 import { ExpressReturnType, IControllerRoute } from './route.interface';
+import { HttpStatus } from './types';
 
 @injectable()
 export abstract class BaseController {
@@ -21,7 +22,7 @@ export abstract class BaseController {
 	}
 
 	public ok<T>(res: Response, message: T): ExpressReturnType {
-		return this.send(res, 200, message);
+		return this.send(res, HttpStatus.OK, message);
 	}
 
 	protected bindRoutes(routes: IControllerRoute[]): void {
